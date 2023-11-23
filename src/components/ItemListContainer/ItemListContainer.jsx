@@ -29,9 +29,9 @@ export const ItemListContainer = () => {
 
   return (
     <>
-    {isLoading ? 
-    <h2>Cargando...</h2> : 
-    <ItemList products={products}/>}
+      {isLoading ?
+        <h2>Cargando...</h2> :
+        <ItemList products={products} />}
     </>
   )
 }
