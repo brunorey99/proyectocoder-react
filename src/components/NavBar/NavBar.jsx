@@ -20,7 +20,10 @@ export const NavBar = () => {
             <a className="nav-link">AirPods</a>
             </Link>
           </div>
-          <CartWidget />
+          <Link to={"/cart"}>
+            <CartWidget />
+          </Link>
+          
         </div>
       </div>
     </nav>

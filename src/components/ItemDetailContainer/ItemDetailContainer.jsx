@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react"
-import { getProductById } from "../../asyncMock";
+import { useContext, useEffect, useState } from "react"
 import { ItemDetail } from "../ItemDetail/ItemDetail";
 import { useParams } from "react-router-dom";
+import { FirebaseContext } from "../../context/FirebaseContext";
 
 export const ItemDetailContainer = () => {
   const { id } = useParams();
-  const [item, setItem] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { getProductById, product, isLoading } = useContext(FirebaseContext)
 
   useEffect(() => {
     getProductById(id)
-      .then(resp => { setItem(resp), setIsLoading(false) })
-      .catch(error => console.log(error));
+    console.log(product)
 
   }, [])
   return (
@@ -19,7 +17,7 @@ export const ItemDetailContainer = () => {
       {isLoading ?
         <h2>Cargando producto...</h2> :
         <div className="d-flex justify-content-center">
-          {item && <ItemDetail {...item} />}
+          {product && <ItemDetail {...product} />}
         </div>}
     </>
   )

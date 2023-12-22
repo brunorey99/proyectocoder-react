@@ -1,30 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom"
-import { getProducts } from "../../asyncMock";
 import { ItemList } from "../ItemList/ItemList";
+import { FirebaseContext } from "../../context/FirebaseContext";
+import { seedProducts } from "../../utils/seedProducts";
 
 export const ItemListContainer = () => {
   const { category } = useParams();
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { getProductsDB, products, isLoading } = useContext(FirebaseContext);
 
   useEffect(() => {
-    setIsLoading(true);
-    getProducts()
-      .then((resp) => {
-        if (category) {
-          const productsFilter = resp.filter((prod) => prod.category === category);
-          if (productsFilter.length > 0) {
-            setProducts(productsFilter);
-          } else {
-            setProducts(resp);
-          }
-        } else {
-          setProducts(resp);
-        }
-        setIsLoading(false);
-      })
-      .catch((error) => console.log(error))
+    // seedProducts()
+    getProductsDB(category)
   }, [category])
 
   return (
